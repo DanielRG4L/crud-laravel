@@ -1,58 +1,113 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Curso CRUD — Gestión de productos
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplicación web desarrollada con **Laravel 13** como proyecto práctico para aprender desarrollo web moderno con PHP, MySQL, Blade y Tailwind CSS.
 
-## About Laravel
+El sistema permite administrar productos desde una interfaz moderna, con operaciones CRUD, búsqueda, filtros y un dashboard con estadísticas.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Funcionalidades
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Dashboard:** resumen y estadísticas de productos.
+- **Gestión de productos:** crear, listar, consultar, editar y eliminar.
+- **Búsqueda:** localizar productos por nombre.
+- **Filtros por precio:** establecer precios mínimos y máximos.
+- **Paginación:** organizar los resultados.
+- **Validación:** verificar los datos antes de guardarlos.
+- **Interfaz moderna:** componentes reutilizables y diseño adaptable.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Tecnologías
 
-## Learning Laravel
+- PHP
+- Laravel 13
+- MySQL
+- Blade
+- Tailwind CSS
+- Vite
+- JavaScript
+- Git y GitHub
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 📋 Requisitos
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP compatible con Laravel 13 y sus extensiones requeridas.
+- Composer.
+- Node.js y npm.
+- MySQL.
+- Git.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## Instalación
 
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### 1. Clonar el repositorio
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone URL_DEL_REPOSITORIO
+cd curso-crud
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2. Instalar dependencias
 
-## Contributing
+```bash
+composer install
+npm install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 3. Configurar el entorno
 
-## Code of Conduct
+Copia `.env.example` y crea un archivo llamado `.env`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+En Windows puedes hacerlo manualmente o ejecutar:
 
-## Security Vulnerabilities
+```bash
+cp .env.example .env
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Genera la clave de la aplicación:
 
-## License
+```bash
+php artisan key:generate
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 4. Configurar la base de datos
+
+Crea una base de datos MySQL y configura en `.env` las variables correspondientes:
+
+```dotenv
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nombre_de_tu_base_de_datos
+DB_USERNAME=tu_usuario
+DB_PASSWORD=tu_contraseña
+```
+
+Sustituye los valores de ejemplo por los de tu entorno local.
+
+### 5. Ejecutar las migraciones
+
+```bash
+php artisan migrate
+```
+
+### 6. Compilar los recursos del frontend
+
+```bash
+npm run build
+```
+
+### 7. Iniciar el servidor
+
+```bash
+php artisan serve
+```
+
+Abre `http://127.0.0.1:8000` en tu navegador.
+
+## Objetivo del proyecto
+
+Practicar los fundamentos de Laravel mediante una aplicación funcional, aplicando rutas, controladores, modelos Eloquent, migraciones, validación, vistas Blade y operaciones CRUD.
+
+## Autor
+
+Proyecto personal de aprendizaje y práctica de desarrollo web con Laravel.
+
+## Licencia
+
+Este proyecto es de carácter educativo. Laravel utiliza la licencia MIT; la licencia de este proyecto debe definirse por separado si deseas distribuirlo formalmente.
