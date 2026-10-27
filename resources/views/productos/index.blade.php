@@ -30,6 +30,84 @@
 
     {{-- Tabla de productos --}}
     <x-ui.card padding="sm">
+    @if ($errors->hasAny(['buscar', 'precio_min', 'precio_max']))
+        <div
+            role="alert"
+            class="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+        >
+            {{ $errors->first('buscar') ?: $errors->first('precio_min') ?: $errors->first('precio_max') }}
+        </div>
+    @endif  
+    <form
+        action="{{ route('productos.index') }}"
+        method="GET"
+        class="mb-6 rounded-xl border border-gray-200 bg-gray-50 p-4"
+    >
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-4">
+            <div class="md:col-span-2">
+                <label for="buscar" class="mb-2 block text-sm font-medium text-gray-700">
+                    Buscar producto
+                </label>
+
+                <input
+                    id="buscar"
+                    type="search"
+                    name="buscar"
+                    value="{{ $busqueda }}"
+                    placeholder="Nombre o descripción..."
+                    class="w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                >
+            </div>
+
+            <div>
+                <label for="precio_min" class="mb-2 block text-sm font-medium text-gray-700">
+                    Precio mínimo (Bs.)
+                </label>
+
+                <input
+                    id="precio_min"
+                    type="number"
+                    name="precio_min"
+                    min="0"
+                    step="0.01"
+                    value="{{ $precioMinimo }}"
+                    placeholder="Ej. 10.00"
+                    class="w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                >
+            </div>
+
+            <div>
+                <label for="precio_max" class="mb-2 block text-sm font-medium text-gray-700">
+                    Precio máximo (Bs.)
+                </label>
+
+                <input
+                    id="precio_max"
+                    type="number"
+                    name="precio_max"
+                    min="0"
+                    step="0.01"
+                    value="{{ $precioMaximo }}"
+                    placeholder="Ej. 500.00"
+                    class="w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                >
+            </div>
+        </div>
+
+        <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:justify-end">
+            <x-ui.button-link
+                href="{{ route('productos.index') }}"
+                variant="secondary"
+            >
+                Limpiar filtros
+            </x-ui.button-link>
+
+            <x-ui.button type="submit" variant="primary">
+                Buscar
+            </x-ui.button>
+        </div>
+    </form>
+
         <div class="mb-5 flex flex-col gap-1 px-2 pt-2 sm:flex-row sm:items-center sm:justify-between">
             <h2 class="text-base font-semibold text-gray-900">
                 Inventario de productos

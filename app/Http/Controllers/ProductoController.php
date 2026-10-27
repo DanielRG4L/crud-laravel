@@ -7,12 +7,58 @@ use Illuminate\Http\Request;
 
 class ProductoController extends Controller
 {
-    public function index()
-    {
-        $productos = Producto::orderBy('id', 'desc')->paginate(10);
+    
 
-        return view('productos.index', compact('productos'));
+    public function index(Request $request)
+    {
+        $filtros = $request->validate([
+            'buscar' => ['nullable', 'string', 'max:255'],
+            'precio_min' => ['nullable', 'numeric', 'min:0'],
+            'precio_max' => ['nullable', 'numeric', 'min:0'],
+        ]);
+
+        $busqueda = $filtros['buscar'] ?? null;
+        $precioMinimo = $filtros['precio_min'] ?? null;
+        $precioMaximo = $filtros['precio_max'] ?? null;
+
+        if (
+            $precioMinimo !== null &&
+            $precioMaximo !== null &&
+            $precioMaximo < $precioMinimo
+        ) {
+            return back()
+                ->withErrors([
+                    'precio_max' => 'El precio máximo debe ser mayor o igual al precio mínimo.',
+                ])
+                ->withInput();
+        }
+
+        $productos = Producto::query()
+            ->when($busqueda, function ($query, $busqueda) {
+                $query->where(function ($subquery) use ($busqueda) {
+                    $subquery->where('nombre', 'like', "%{$busqueda}%")
+                        ->orWhere('descripcion', 'like', "%{$busqueda}%");
+                });
+            })
+            ->when($precioMinimo !== null && $precioMinimo !== '', function ($query) use ($precioMinimo) {
+                $query->where('precio', '>=', $precioMinimo);
+            })
+            ->when($precioMaximo !== null && $precioMaximo !== '', function ($query) use ($precioMaximo) {
+                $query->where('precio', '<=', $precioMaximo);
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('productos.index', compact(
+            'productos',
+            'busqueda',
+            'precioMinimo',
+            'precioMaximo'
+        ));
     }
+
+
 
     public function create()
     {
