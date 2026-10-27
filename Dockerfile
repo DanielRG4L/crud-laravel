@@ -5,7 +5,7 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
 RUN apt-get update && apt-get install -y \
     git unzip zip curl \
-    libpq-dev libzip-dev libicu-dev \
+    libpq-dev libzip-dev libicu-dev libonig-dev \
     && docker-php-ext-install \
     pdo_pgsql mbstring bcmath intl opcache \
     && a2enmod rewrite \
