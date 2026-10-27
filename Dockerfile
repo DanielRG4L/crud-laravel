@@ -32,12 +32,13 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction \
     && chown -R www-data:www-data storage bootstrap/cache
 
 RUN sed -ri \
-    's#DocumentRoot /var/www/html#DocumentRoot /var/www/html/public#' \
+    's#DocumentRoot .*#DocumentRoot /var/www/html/public#' \
     /etc/apache2/sites-available/000-default.conf \
     && printf '\n<Directory /var/www/html/public>\n\
     AllowOverride All\n\
     Require all granted\n\
-</Directory>\n' >> /etc/apache2/apache2.conf
+</Directory>\n' >> /etc/apache2/apache2.conf \
+    && grep -n 'DocumentRoot' /etc/apache2/sites-available/000-default.conf
 
 EXPOSE 10000
 
