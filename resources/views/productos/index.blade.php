@@ -108,15 +108,59 @@
         </div>
     </form>
 
-        <div class="mb-5 flex flex-col gap-1 px-2 pt-2 sm:flex-row sm:items-center sm:justify-between">
+
+    <div class="mb-6 flex flex-col gap-4 px-2 pt-2 sm:flex-row sm:items-center sm:justify-between">
+        <div>
             <h2 class="text-base font-semibold text-gray-900">
                 Inventario de productos
             </h2>
 
-            <p class="text-sm text-gray-500">
-                Total: {{ $productos->total() }} productos
+            <p class="mt-1 text-sm text-gray-500">
+                Mostrando {{ $productos->count() }} de {{ $productos->total() }} productos encontrados
             </p>
         </div>
+
+        @if (request()->hasAny(['buscar', 'precio_min', 'precio_max']))
+            <x-ui.badge variant="info">
+                Filtros aplicados
+            </x-ui.badge>
+        @else
+            <x-ui.badge variant="success">
+                Inventario completo
+            </x-ui.badge>
+        @endif
+    </div>
+
+<div class="mb-5 grid grid-cols-1 gap-4 px-2 sm:grid-cols-2">
+    <div class="rounded-xl border border-gray-200 bg-white p-4">
+        <p class="text-sm font-medium text-gray-500">
+            Productos encontrados
+        </p>
+
+        <p class="mt-2 text-2xl font-bold tracking-tight text-gray-900">
+            {{ $productos->total() }}
+        </p>
+
+        <p class="mt-1 text-xs text-gray-500">
+            Según la búsqueda y los filtros actuales
+        </p>
+    </div>
+
+    <div class="rounded-xl border border-gray-200 bg-white p-4">
+        <p class="text-sm font-medium text-gray-500">
+            En esta página
+        </p>
+
+        <p class="mt-2 text-2xl font-bold tracking-tight text-indigo-700">
+            {{ $productos->count() }}
+        </p>
+
+        <p class="mt-1 text-xs text-gray-500">
+            Registros visibles actualmente
+        </p>
+    </div>
+</div>
+
 
         <div class="overflow-x-auto">
             <table class="w-full min-w-[720px] text-left text-sm">

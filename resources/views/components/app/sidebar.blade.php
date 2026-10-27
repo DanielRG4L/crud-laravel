@@ -1,6 +1,6 @@
 <aside class="flex min-h-screen w-64 shrink-0 flex-col bg-gray-950 px-4 py-6 text-white">
     {{-- Marca --}}
-    <a href="{{ route('productos.index') }}" class="mb-10 flex items-center gap-3 px-2">
+    <a href="{{ route('dashboard') }}" class="mb-10 flex items-center gap-3 px-2">
         <span class="flex size-10 items-center justify-center rounded-xl bg-indigo-600">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -33,6 +33,31 @@
         </p>
 
         <a
+            href="{{ route('dashboard') }}"
+            @class([
+                'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors',
+                'bg-indigo-600 text-white' => request()->routeIs('dashboard'),
+                'text-gray-400 hover:bg-white/5 hover:text-white' => ! request()->routeIs('dashboard'),
+            ])
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="size-5 shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="1.8"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m3 10 9-7 9 7M5 9v11h14V9M9 20v-6h6v6"
+                />
+            </svg>
+
+            <span>Dashboard</span>
+        </a>
+        <a
             href="{{ route('productos.index') }}"
             @class([
                 'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors',
@@ -42,6 +67,8 @@
         >
             <span>Productos</span>
         </a>
+        
+
     </nav>
 
     {{-- Pie del sidebar --}}
