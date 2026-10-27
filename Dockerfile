@@ -31,14 +31,20 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction \
        bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache
 
-RUN sed -ri \
-    's#DocumentRoot .*#DocumentRoot /var/www/html/public#' \
-    /etc/apache2/sites-available/000-default.conf \
-    && printf '\n<Directory /var/www/html/public>\n\
-    AllowOverride All\n\
-    Require all granted\n\
-</Directory>\n' >> /etc/apache2/apache2.conf \
-    && grep -n 'DocumentRoot' /etc/apache2/sites-available/000-default.conf
+RUN printf '%s\n' \
+    '<VirtualHost *:10000>' \
+    '    ServerName localhost' \
+    '    DocumentRoot /var/www/html/public' \
+    '    DirectoryIndex index.php index.html' \
+    '    <Directory /var/www/html/public>' \
+    '        AllowOverride All' \
+    '        Require all granted' \
+    '    </Directory>' \
+    '    ErrorLog /dev/stderr' \
+    '    CustomLog /dev/stdout combined' \
+    '</VirtualHost>' \
+    > /etc/apache2/sites-available/000-default.conf \
+    && echo 'ServerName localhost' >> /etc/apache2/apache2.conf
 
 EXPOSE 10000
 
